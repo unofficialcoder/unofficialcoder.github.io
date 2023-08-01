@@ -1,0 +1,899 @@
+/* Variables */
+
+:root {
+  /* Fonts */
+  --default-font: "Poppins", sans-serif;
+  /* Colors */
+  --text: ;
+  --background: ;
+  --primary-button: ;
+  --secondary-button: ;
+  --accent: ;
+  /* Font Sizes */
+  --normal-font: 1rem;
+  --title-content-font: 1.1rem;
+  --small-title-font: 1.5rem;
+  --icon-font: 2rem;
+  --large-title-font: 2.5rem;
+  --main-title-font: 3rem;
+  /* Taskbar Height */
+  --taskbar-height: 0;
+  /* Progress Bar Height */
+  --progress-bar-width: 100px;
+  /* Particle Height */
+  --particles-height: 100vh;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+
+::-webkit-scrollbar{
+  display: none;
+}
+
+::-moz-selection {
+  background: var(--accent);
+}
+
+::selection {
+  background: var(--accent);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  outline: none;
+  text-decoration: none;
+  list-style: none;
+}
+
+a {
+  font-size: var(--normal-font);
+  color: var(--text);
+}
+
+a:hover {
+  transition: all 0.3s ease-in-out;
+  color: var(--accent);
+}
+
+i::before {
+  font-size: var(--icon-font);
+}
+
+i::before:hover {
+  color: var(--accent);
+}
+
+body {
+  background-color: var(--background);
+  font-family: var(--default-font);
+  color: var(--text);
+}
+
+#preLoader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background);
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  z-index: 1001;
+}
+
+.loader {
+  color: var(--accent);
+  font-family: Consolas, Menlo, Monaco, monospace;
+  font-weight: bold;
+  font-size: 50px;
+  opacity: 0.8;
+}
+
+.loader:before {
+  content: "{";
+  display: inline-block;
+  animation: pulse 0.4s alternate infinite ease-in-out;
+}
+
+.loader:after {
+  content: "}";
+  display: inline-block;
+  animation: pulse 0.4s 0.3s alternate infinite ease-in-out;
+}
+
+@keyframes pulse {
+  to {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+}
+
+#nightMode{
+  background-color: rgba(255, 136, 0, 0.185);
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  display: none;
+  position: fixed;
+  z-index: 1001;
+}
+
+.grayScale{
+  -moz-filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+  filter: gray; 
+  filter: grayscale(100%);
+}
+
+#alertBox{
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background-color: var(--primary-button);
+  color: var(--text);
+  margin: 1rem;
+  border-radius: 0.3rem;
+  max-width: 25%;
+  transition: right 0.5s ease-in-out;
+}
+
+#alertBox.closed {
+  right: -30%;
+}
+
+#alertBox.opened {
+  right: 0;
+}
+
+#alertTop{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  border-bottom: 2px solid black;
+}
+
+#notificationCloseBtn{
+  cursor: pointer;
+}
+
+#notificationCloseBtn::before{
+  font-size: 1.5rem;
+}
+
+#alertBottom{
+  padding: 0.5rem;
+}
+
+#taskbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  position: sticky;
+  padding: 1rem 5rem;
+  z-index: 1000;
+  top: 0%;
+  left: 0%;
+  transition: background-color 0.3s;
+}
+
+#taskbar.scrolled {
+  background-color: var(--background);
+}
+
+#logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--small-title-font);
+  font-weight: 500;
+}
+
+#logoImg {
+  width: var(--main-title-font);
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+#end {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.taskbarList {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ri-shuffle-line::before {
+  font-size: 1.2rem;
+}
+
+.taskbarWrap {
+  float: left;
+  margin: 0.1rem;
+}
+
+.taskbarLink {
+  padding: 1rem;
+  font-size: var(--normal-font);
+}
+
+.themeBtn > button,
+.themeDBtn > button {
+  background-color: transparent;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.toggleButton {
+  display: none;
+}
+
+.menubtn::before {
+  font-size: 1.2rem;
+}
+
+#dropdown {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  text-align: right;
+  background-color: var(--accent);
+  right: 0;
+  width: 270px;
+  border-radius: 0.5rem;
+  margin: 0.5rem;
+  height: 0;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+#dropdown.open {
+  transition: height 0.5s ease-in;
+  height: auto;
+}
+
+#dropdown.close {
+  transition: all 2s;
+  height: 0;
+}
+
+.taskbarDList {
+  width: 100%;
+}
+
+.taskbarDWrap {
+  width: 100%;
+  border-top: 2px solid var(--background);
+}
+
+.taskbarDLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem 2rem;
+}
+
+#progressBar {
+  position: fixed;
+  width: 100%;
+  height: 0.3rem;
+  overflow: hidden;
+  top: var(--taskbar-height);
+  z-index: 1000;
+  transition: background-color 0.3s;
+}
+
+#progressBar.scrolled {
+  background-color: var(--secondary-button);
+}
+
+#progressBarFill {
+  height: 100%;
+  transition: width 0.15s linear;
+  transition: background-color 0.3s;
+  transition: width 0.1s;
+  width: var(--progress-bar-width);
+}
+
+#progressBarFill.scrolled {
+  background-color: var(--accent);
+}
+
+#container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#home,
+#projectHome {
+  min-height: calc(100vh - 90px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 4rem;
+}
+
+#welcomeText,
+#projectWelcomeText {
+  font-size: var(--main-title-font);
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+#homeText {
+  font-size: var(--normal-font);
+}
+
+#homeContent,
+#projectHomeContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 60%;
+  text-align: center;
+  margin: 25px;
+  margin-bottom: 100px;
+}
+
+#homebtn,
+#projectHomebtn {
+  background-color: var(--primary-button);
+  border-radius: 5px;
+  padding: 1rem 4rem;
+  /* box-shadow: 0px 0px 25px 10px    rgb(30, 30, 30); */
+}
+
+#homebtn:hover,
+#projectHomebtn:hover {
+  transition: all 0.3s ease;
+  transform: translateY(-5px);
+  box-shadow: 0px 0px 25px 1px rgb(30, 30, 30);
+  color: var(--text);
+}
+
+#about {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  max-width: 100vw;
+  min-height: 100vh;
+  width: 100%;
+  margin-bottom: 4rem;
+}
+
+#aboutTitle {
+  font-size: var(--large-title-font);
+  border-bottom: 5px solid var(--primary-button);
+  border-bottom-style: double;
+  padding-bottom: 1rem;
+  margin-bottom: 3rem;
+}
+
+#aboutTitleContent {
+  width: 80%;
+  text-align: center;
+  font-size: var(--title-content-font);
+  margin-bottom: 50px;
+}
+
+#aboutContent {
+  display: flex;
+  justify-content: center;
+  max-width: 85%;
+}
+
+#knowMe {
+  display: flex;
+  width: 50%;
+  margin: 20px;
+  flex-direction: column;
+}
+
+#mySkills {
+  width: 50%;
+  margin: 20px;
+}
+
+#knowMeTitle,
+#mySkillsTitle {
+  display: flex;
+  font-size: var(--small-title-font);
+  padding-bottom: 2rem;
+}
+
+#knowMeContent {
+  font-size: var(--normal-font);
+}
+
+#mySkillsList {
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.mySkillItemFill{
+  position:static;
+  width: 100%;
+  height: 100%;
+  background-color: red;
+}
+
+.mySkillItem,
+.tools,
+.reference {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  margin: 0.2rem 0.4rem;
+  margin-left: 0;
+  background-color: var(--secondary-button);
+  border-radius: 0.2rem;
+  font-size: var(--normal-font);
+}
+
+.mySkillItem:hover,
+.tools:hover,
+.reference:hover {
+  transition: all 0.3s ease;
+  background-color: var(--accent);
+  cursor: pointer;
+  color: var(--text);
+}
+
+#aboutbtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-button);
+  border-radius: 5px;
+  padding: 1rem 0;
+  margin-top: 20px;
+  width: 50%;
+}
+
+#aboutbtn:hover {
+  transition: all 0.3s ease;
+  transform: translateY(-5px);
+  color: var(--text);
+}
+
+#projects {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 100vw;
+  min-height: calc(100vh - 90px);
+  width: 100%;
+  margin-bottom: 4rem;
+}
+
+#projectsTitle {
+  font-size: var(--large-title-font);
+  border-bottom: 5px solid var(--primary-button);
+  border-bottom-style: double;
+  padding-bottom: 1rem;
+  margin-bottom: 3rem;
+}
+
+#projectsTitleContent {
+  width: 80%;
+  text-align: center;
+  font-size: var(--title-content-font);
+  margin-bottom: 50px;
+}
+
+#projectsContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.projectCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 80%;
+}
+
+.projectsCardImg {
+  width: 50%;
+  margin: 1rem;
+  border-radius: 1rem;
+}
+
+.projectCardContent {
+  width: 50%;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.projectTitle {
+  font-size: var(--small-title-font);
+  margin-bottom: 1rem;
+}
+
+.projectIntro {
+  font-size: var(--normal-font);
+}
+
+.projectbtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-button);
+  border-radius: 5px;
+  padding: 1rem 0;
+  margin-top: 20px;
+  width: 10rem;
+}
+
+.projectbtn:hover {
+  transition: all 0.3s ease;
+  transform: translateY(-5px);
+  color: var(--text);
+}
+
+#contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 100vw;
+  min-height: 100vh;
+  width: 100%;
+  margin-bottom: 4rem;
+}
+
+#contactTitle {
+  font-size: var(--large-title-font);
+  border-bottom: 5px solid var(--primary-button);
+  border-bottom-style: double;
+  padding-bottom: 1rem;
+  margin-bottom: 3rem;
+}
+
+#contactTitleContent {
+  width: 80%;
+  text-align: center;
+  font-size: var(--title-content-font);
+  margin-bottom: 50px;
+}
+
+#contactForm {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--secondary-button);
+  padding: 3rem;
+  border-radius: 0.5rem;
+}
+
+.contactInputTitle {
+  display: flex;
+  align-items: center;
+}
+
+.contactInputTitle > i {
+  margin-right: 0.5rem;
+}
+
+.contactInputTitle > i::before {
+  font-size: var(--title-content-font);
+  color: var(--accent);
+  font-weight: bolder;
+}
+
+.contactInput {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background);
+  outline: none;
+  border: none;
+  padding: 1rem;
+  margin: 1rem;
+  color: var(--text);
+  font-family: var(--default-font);
+  width: 40vw;
+  border-radius: 0.5rem;
+  font-size: var(--normal-font);
+}
+
+.contactInputTitle {
+  margin: 0 1rem;
+  font-size: var(--normal-font);
+}
+
+#contactMsg {
+  resize: none;
+}
+
+#saveContactDataItems {
+  display: flex;
+  align-items: center;
+  margin-left: 2rem;
+  margin-bottom: 1rem;
+}
+
+#saveContactDataCheckbox {
+  width: 1.5rem;
+  margin-right: 1rem;
+  aspect-ratio: 1;
+  cursor: pointer;
+  accent-color: var(--accent);
+}
+
+#saveContactDataText {
+  font-size: var(--normal-font);
+}
+
+#contactbtns {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+#sendbtn,
+#resetbtn {
+  border: none;
+  color: var(--text);
+  font-family: var(--default-font);
+  font-size: var(--normal-font);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-button);
+  border-radius: 5px;
+  padding: 1rem 0;
+  margin-top: 0.5rem;
+  width: 30%;
+  align-self: center;
+  cursor: pointer;
+}
+
+#sendbtn:hover,
+#resetbtn:hover {
+  transition: all 0.3s ease;
+  transform: translateY(-5px);
+}
+
+#footer {
+  background-color: var(--secondary-button);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#footerStart {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  padding: 5rem 0.5rem;
+}
+
+#footerDesc {
+  width: 40%;
+}
+
+#footerName {
+  font-size: var(--small-title-font);
+}
+
+#footerShortDesc {
+  margin-top: 1rem;
+  font-size: var(--normal-font);
+}
+
+#social {
+  display: flex;
+  flex-direction: column;
+}
+
+#socialTitle {
+  font-size: var(--small-title-font);
+}
+
+#socialLinks {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+}
+
+.socialLink {
+  display: flex;
+  font-size: var(--normal-font);
+  padding-right: 1rem;
+}
+
+#line {
+  width: 90%;
+}
+
+#footerEnd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+#footerContent {
+  font-size: var(--normal-font);
+}
+
+#websiteLink {
+  text-decoration: underline;
+}
+
+#particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: var(--particles-height);
+  z-index: -1000;
+  display: flex;
+}
+
+#particles-js.remove {
+  display: none;
+}
+
+@media only screen and (max-width: 1000px) {
+  html {
+    font-size: 90%;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  html {
+    font-size: 85%;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  html {
+    font-size: 80%;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  html {
+    font-size: 75%;
+  }
+
+  #taskbar {
+    padding: 1rem 1rem;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  html {
+    font-size: 70%;
+  }
+
+  .taskbarList {
+    display: none;
+  }
+
+  .toggleButton {
+    display: block;
+  }
+
+  .taskbarDList {
+    display: block;
+  }
+
+  #dropdown {
+    display: flex;
+  }
+
+  #aboutContent {
+    flex-direction: column;
+  }
+
+  #knowMe {
+    width: 100%;
+  }
+
+  #mySkills {
+    width: 100%;
+  }
+
+  .projectCard {
+    flex-direction: column;
+  }
+
+  .projectsCardImg {
+    width: 100%;
+  }
+
+  .projectCardContent {
+    width: 100%;
+  }
+
+  #contactForm {
+    width: 95%;
+  }
+
+  .contactInput {
+    width: 100%;
+  }
+
+  #aboutTitleContent {
+    margin-bottom: 2rem;
+  }
+
+  #projectsTitleContent {
+    margin-bottom: 2rem;
+  }
+
+  #contactTitleContent {
+    margin-bottom: 2rem;
+  }
+
+  #alertBox{
+    max-width: 35%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  #footerStart {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  #footerDesc {
+    margin-bottom: 2rem;
+    width: 100%;
+  }
+
+  #social {
+    width: 100%;
+  }
+
+  #alertBox{
+    max-width: 40%;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  #dropdown {
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .taskbarDLink {
+    justify-content: right;
+  }
+}
+
+@media only screen and (max-height: 350px) {
+  #chat{
+    display: none;
+  }
+}
